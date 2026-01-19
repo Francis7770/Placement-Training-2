@@ -1,0 +1,17 @@
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import javax.ws.rs.*;
+
+@Path("/hello")
+public class HelloResource {
+    @GET
+    @Path("/{name}")
+    public String greet(@PathParam("name") String name) {
+        return "Hello, " + name + " from Quarkus!";
+    }
+
+    @QuarkusMain
+    public static void main(String[] args) {
+        Quarkus.run(args);
+    }
+}
