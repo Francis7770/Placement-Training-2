@@ -1,0 +1,12 @@
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+
+key = RSA.generate(2048)
+cipher = PKCS1_OAEP.new(key)
+
+message = b"Top Secret"
+encrypted = cipher.encrypt(message)
+decrypted = PKCS1_OAEP.new(key).decrypt(encrypted)
+
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted)
