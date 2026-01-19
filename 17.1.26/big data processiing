@@ -1,0 +1,21 @@
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import java.io.IOException;
+
+public class WordCount {
+    public static class TokenizerMapper extends Mapper<Object, String, String, Integer> {
+        public void map(Object key, String value, Context context) throws IOException, InterruptedException {
+            for (String word : value.split(" ")) {
+                context.write(word, 1);
+            }
+        }
+    }
+
+    public static class IntSumReducer extends Reducer<String, Integer, String, Integer> {
+        public void reduce(String key, Iterable<Integer> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (int val : values) sum += val;
+            context.write(key, sum);
+        }
+    }
+}
