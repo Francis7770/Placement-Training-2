@@ -1,0 +1,30 @@
+import java.util.concurrent.*;
+
+public class ForkJoinExample extends RecursiveTask<Integer> {
+    private final int[] arr;
+    private final int start, end;
+
+    public ForkJoinExample(int[] arr, int start, int end) {
+        this.arr = arr; this.start = start; this.end = end;
+    }
+
+    protected Integer compute() {
+        if (end - start <= 2) {
+            int sum = 0;
+            for (int i = start; i < end; i++) sum += arr[i];
+            return sum;
+        }
+        int mid = (start + end) / 2;
+        ForkJoinExample left = new ForkJoinExample(arr, start, mid);
+        ForkJoinExample right = new ForkJoinExample(arr, mid, end);
+        left.fork();
+        return right.compute() + left.join();
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1,2,3,4,5,6,7,8};
+        ForkJoinPool pool = new ForkJoinPool();
+        int result = pool.invoke(new ForkJoinExample(arr, 0, arr.length));
+        System.out.println("Sum: " + result);
+    }
+}
