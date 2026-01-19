@@ -1,0 +1,11 @@
+import ray
+
+ray.init()
+
+@ray.remote
+def heavy_task(x):
+    return x * x
+
+futures = [heavy_task.remote(i) for i in range(10)]
+results = ray.get(futures)
+print("Distributed results:", results)
