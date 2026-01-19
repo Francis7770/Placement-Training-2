@@ -1,0 +1,13 @@
+import com.apollographql.apollo.ApolloClient;
+import okhttp3.OkHttpClient;
+
+public class GraphQLClientExample {
+    public static void main(String[] args) {
+        ApolloClient client = ApolloClient.builder()
+            .serverUrl("https://example.com/graphql")
+            .okHttpClient(new OkHttpClient())
+            .build();
+
+        System.out.println("GraphQL client initialized!");
+    }
+}
