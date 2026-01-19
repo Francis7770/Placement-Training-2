@@ -1,0 +1,15 @@
+import edu.stanford.nlp.pipeline.*;
+
+public class NLPExample {
+    public static void main(String[] args) {
+        StanfordCoreNLP pipeline = new StanfordCoreNLP("tokenize,ssplit,pos,lemma,ner");
+        CoreDocument doc = new CoreDocument("Barack Obama was the 44th President of the USA.");
+        pipeline.annotate(doc);
+
+        doc.sentences().forEach(sentence -> {
+            sentence.tokens().forEach(token -> {
+                System.out.println(token.word() + " -> " + token.ner());
+            });
+        });
+    }
+}
