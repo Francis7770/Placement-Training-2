@@ -1,0 +1,21 @@
+import retrofit2.*;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+
+interface ApiService {
+    @GET("posts/1")
+    Call<Object> getPost();
+}
+
+public class RetrofitExample {
+    public static void main(String[] args) throws Exception {
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        Response<Object> response = service.getPost().execute();
+        System.out.println(response.body());
+    }
+}
