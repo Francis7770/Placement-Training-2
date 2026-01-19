@@ -1,0 +1,18 @@
+import akka.actor.*;
+
+public class HelloActor extends AbstractActor {
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+            .match(String.class, msg -> {
+                System.out.println("Received: " + msg);
+            })
+            .build();
+    }
+
+    public static void main(String[] args) {
+        ActorSystem system = ActorSystem.create("MySystem");
+        ActorRef actor = system.actorOf(Props.create(HelloActor.class), "helloActor");
+        actor.tell("Hello Akka!", ActorRef.noSender());
+    }
+}
