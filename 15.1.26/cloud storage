@@ -1,0 +1,14 @@
+import software.amazon.awssdk.services.s3.*;
+import software.amazon.awssdk.services.s3.model.*;
+
+public class S3Example {
+    public static void main(String[] args) {
+        S3Client s3 = S3Client.create();
+        s3.putObject(PutObjectRequest.builder()
+                .bucket("my-bucket")
+                .key("file.txt")
+                .build(),
+                java.nio.file.Paths.get("file.txt"));
+        System.out.println("File uploaded to S3!");
+    }
+}
