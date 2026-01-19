@@ -1,0 +1,10 @@
+import org.tensorflow.*;
+
+public class TensorFlowExample {
+    public static void main(String[] args) {
+        try (Graph g = new Graph()) {
+            Tensor t = Tensor.create(3.0f);
+            System.out.println("Tensor value: " + t.floatValue());
+        }
+    }
+}
