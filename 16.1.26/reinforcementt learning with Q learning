@@ -1,0 +1,11 @@
+import numpy as np
+import gym
+
+env = gym.make("FrozenLake-v1", is_slippery=False)
+Q = np.zeros((env.observation_space.n, env.action_space.n))
+alpha, gamma, epsilon = 0.8, 0.95, 0.1
+
+for _ in range(1000):
+    state = env.reset()[0]
+    done = False
+    while not done:
