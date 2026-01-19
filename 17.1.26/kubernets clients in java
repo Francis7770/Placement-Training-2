@@ -1,0 +1,13 @@
+import io.kubernetes.client.openapi.*;
+import io.kubernetes.client.openapi.apis.CoreV1Api;
+
+public class KubernetesExample {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Config.defaultClient();
+        Configuration.setDefaultApiClient(client);
+
+        CoreV1Api api = new CoreV1Api();
+        var pods = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null, false);
+        pods.getItems().forEach(p -> System.out.println(p.getMetadata().getName()));
+    }
+}
