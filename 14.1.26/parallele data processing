@@ -1,0 +1,5 @@
+import dask.array as da
+
+x = da.random.random((10000, 10000), chunks=(1000, 1000))
+mean_val = x.mean().compute()
+print("Mean:", mean_val)
