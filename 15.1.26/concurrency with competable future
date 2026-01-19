@@ -1,0 +1,12 @@
+import java.util.concurrent.*;
+
+public class AsyncExample {
+    public static void main(String[] args) {
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            return "Data fetched!";
+        });
+
+        future.thenApply(data -> data.toUpperCase())
+              .thenAccept(System.out::println);
+    }
+}
