@@ -1,0 +1,9 @@
+import io.reactivex.rxjava3.core.Observable;
+
+public class RxJavaExample {
+    public static void main(String[] args) {
+        Observable<String> stream = Observable.just("A", "B", "C", "D");
+        stream.map(String::toLowerCase)
+              .subscribe(System.out::println);
+    }
+}
