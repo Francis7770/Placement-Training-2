@@ -1,0 +1,18 @@
+import random
+
+def fitness(x):
+    return -((x-3)**2) + 9  # peak at x=3
+
+population = [random.uniform(-10, 10) for _ in range(20)]
+for gen in range(50):
+    scores = [fitness(ind) for ind in population]
+    parents = sorted(zip(scores, population), reverse=True)[:5]
+    children = []
+    for _ in range(15):
+        p1, p2 = random.choice(parents)[1], random.choice(parents)[1]
+        child = (p1 + p2)/2 + random.uniform(-1,1)
+        children.append(child)
+    population = [p for _, p in parents] + children
+
+best = max(population, key=fitness)
+print("Best solution:", best, "Fitness:", fitness(best))
