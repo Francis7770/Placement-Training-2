@@ -1,0 +1,20 @@
+import org.apache.kafka.streams.*;
+import org.apache.kafka.streams.kstream.*;
+
+import java.util.Properties;
+
+public class KafkaStreamsExample {
+    public static void main(String[] args) {
+        Properties props = new Properties();
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-app");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+
+        StreamsBuilder builder = new StreamsBuilder();
+        KStream<String, String> stream = builder.stream("input-topic");
+        stream.mapValues(value -> value.toUpperCase())
+              .to("output-topic");
+
+        KafkaStreams streams = new KafkaStreams(builder.build(), props);
+        streams.start();
+    }
+}
