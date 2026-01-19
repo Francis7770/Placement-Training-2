@@ -1,0 +1,13 @@
+from fastapi import FastAPI
+import aio_pika
+
+app = FastAPI()
+
+@app.on_event("startup")
+async def startup():
+    connection = await aio_pika.connect("amqp://guest:guest@localhost/")
+    channel = await connection.channel()
+    await channel.default_exchange.publish(
+        aio_pika.Message(body=b"Hello RabbitMQ"),
+        routing_key="test_queue"
+    )
