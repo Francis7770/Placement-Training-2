@@ -1,0 +1,12 @@
+import io.jsonwebtoken.*;
+
+public class JwtExample {
+    public static void main(String[] args) {
+        String token = Jwts.builder()
+                .setSubject("user123")
+                .signWith(io.jsonwebtoken.security.Keys.secretKeyFor(SignatureAlgorithm.HS256))
+                .compact();
+
+        System.out.println("JWT: " + token);
+    }
+}
