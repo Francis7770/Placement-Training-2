@@ -1,0 +1,11 @@
+import com.hazelcast.core.*;
+
+public class HazelcastExample {
+    public static void main(String[] args) {
+        HazelcastInstance hz = Hazelcast.newHazelcastInstance();
+        IMap<String, String> map = hz.getMap("cache");
+
+        map.put("key1", "value1");
+        System.out.println("Cached: " + map.get("key1"));
+    }
+}
