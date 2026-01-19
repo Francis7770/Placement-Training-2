@@ -1,0 +1,8 @@
+from google.cloud import storage
+
+client = storage.Client()
+bucket = client.bucket("my-bucket")
+blob = bucket.blob("file.txt")
+blob.upload_from_filename("file.txt")
+
+print("File uploaded to GCS!")
