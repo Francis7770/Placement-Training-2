@@ -1,0 +1,19 @@
+import akka.actor.*;
+import akka.cluster.Cluster;
+
+public class ClusterExample extends AbstractActor {
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+            .match(String.class, msg -> {
+                System.out.println("Cluster node received: " + msg);
+            })
+            .build();
+    }
+
+    public static void main(String[] args) {
+        ActorSystem system = ActorSystem.create("ClusterSystem");
+        Cluster cluster = Cluster.get(system);
+        system.actorOf(Props.create(ClusterExample.class), "clusterActor");
+    }
+}
